@@ -1,5 +1,7 @@
 package org.xdemo.example.springaop.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -34,5 +36,25 @@ public class SpringController {
 		userService.save(user);
 		return string;
 	}
+       @RequestMapping("/json")
+    @ResponseBody
+    public Object json() {
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("zhangsan", "hello");
+        result.put("lisi", "world");
+        result.put("wangwu", "nihao");
+      //  PrintWriter writer = response.getWriter();
+        return result;
+    }
+    @RequestMapping("/json1")
+    @ResponseBody
+    public Object json1() {
+        Map<String, String> result = new HashMap<String, String>();
+        result.put("zhangsan", "hello");
+        result.put("lisi", "world");
+        result.put("wangwu", "nihao");
+      //  PrintWriter writer = response.getWriter();
+        return "dfdfd";
+    }
 	
 }
