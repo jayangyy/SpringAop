@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <http />
-<!--    <user-service>
+    <!--    <user-service>
         <user name="user" password="password" authorities="ROLE_USER" />
     </user-service>-->
     <!-- 指定一个自定义的authentication-manager :customUserDetailsService -->
@@ -35,21 +35,21 @@
     <!--<http auto-config="true" access-denied-page="/accessDenied.jsp">-->
   
   
-        <!--<form-login login-page="/login.jsp"  authentication-failure-url="/login.jsp?error=true"  />-->
+    <!--<form-login login-page="/login.jsp"  authentication-failure-url="/login.jsp?error=true"  />-->
 
-        <!-- "记住我"功能，采用持久化策略（将用户的登录信息存放在数据库表中） -->
-        <!--<remember-me data-source-ref="dataSource" />-->
+    <!-- "记住我"功能，采用持久化策略（将用户的登录信息存放在数据库表中） -->
+    <!--<remember-me data-source-ref="dataSource" />-->
   
-        <!-- 检测失效的sessionId,超时时定位到另外一个URL -->
-        <!--<session-management invalid-session-url="/sessionTimeout.jsp" />-->
+    <!-- 检测失效的sessionId,超时时定位到另外一个URL -->
+    <!--<session-management invalid-session-url="/sessionTimeout.jsp" />-->
   
-        <!--<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/>--> 
+    <!--<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/>--> 
   
     <!--</http>-->
 
     <!-- 一个自定义的filter，必须包含authenticationManager,
     accessDecisionManager,securityMetadataSource三个属性。  -->
-<!--    <b:bean id="myFilter" 
+    <!--    <b:bean id="myFilter" 
             class="com.springmvc.security.MyFilterSecurityInterceptor">
         <b:property name="authenticationManager" 
                     ref="authenticationManager"/>
@@ -60,7 +60,7 @@
     </b:bean>-->
  
     <!-- 注意能够为authentication-manager 设置alias别名  -->
-<!--    <authentication-manager alias="authenticationManager">
+    <!--    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsManager">
               <password-encoder ref="passwordEncoder">
              <salt-source user-property="username" />
@@ -78,30 +78,31 @@
     <!--<b:bean id="userDetailsManager" class="com.springmvc.security.MyUserDetailsService"/>-->  
  
     <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源。 -->
-<!--    <b:bean id="myAccessDecisionManager"
+    <!--    <b:bean id="myAccessDecisionManager"
             class="com.springmvc.security.MyAccessDecisionManager">
     </b:bean>  -->
 
 
     <!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色去访问。 -->
-<!--    <b:bean id="mySecurityMetadataSource"
+    <!--    <b:bean id="mySecurityMetadataSource"
             class="com.springmvc.security.MyInvocationSecurityMetadataSourceService">
         <b:constructor-arg ref="testDao"/>
     </b:bean> -->
-	<!-- 指定一个自定义的authentication-manager :customUserDetailsService -->
-	<security:authentication-manager>
-	        <security:authentication-provider user-service-ref="customUserDetailsService">
-	        		<security:password-encoder ref="passwordEncoder"/>
-	        </security:authentication-provider>
-	</security:authentication-manager>
-	
-	<!-- 对密码进行MD5编码 -->
-	<b:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+    <!-- 指定一个自定义的authentication-manager :customUserDetailsService -->
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <password-encoder ref="passwordEncoder">
+                <salt-source user-property="username" />
+            </password-encoder> 
+        </authentication-provider>
+    </authentication-manager>
+    <!-- 对密码进行MD5编码 -->
+    <b:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
 
-	<!-- 
-		通过 customUserDetailsService,Spring会自动的用户的访问级别.
-		也可以理解成:以后我们和数据库操作就是通过customUserDetailsService来进行关联.
-	 -->
-	<b:bean id="customUserDetailsService" class="cr.cdrb.web.edu.security.EduUserDetailsService"/>
+    <!-- 
+           通过 customUserDetailsService,Spring会自动的用户的访问级别.
+           也可以理解成:以后我们和数据库操作就是通过customUserDetailsService来进行关联.
+    -->
+    <b:bean id="customUserDetailsService" class="cr.cdrb.web.edu.security.EduUserDetailsService"/>
 
 </b:beans>
