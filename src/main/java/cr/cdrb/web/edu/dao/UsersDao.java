@@ -7,17 +7,17 @@ package cr.cdrb.web.edu.dao;
 
 import cr.cdrb.web.edu.daointerface.IUserdao;
 import cr.cdrb.web.edu.domains.security.Users;
-import javax.annotation.Resource;
-import javax.sql.DataSource;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Jayang
  */
+@Repository
 public class UsersDao implements IUserdao {
 
-    @Resource(name = "dataSource1")
-    private DataSource db;
+//    @Resource(name = "dataSource1")
+//    private DataSource db;
 
     public Users GetUsers(String usernmae) {
         String sqlStr = "select U.username,U.password,S1.rolename from Users U "

@@ -10,5 +10,31 @@ package cr.cdrb.web.edu.domains.security;
  * @author Jayang
  */
 public class Role {
-    
+    private String rolename;
+    private String rolecmt;
+    private Integer roleid;
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    public String getRolecmt() {
+        return rolecmt;
+    }
+
+    public void setRolecmt(String rolecmt) {
+        this.rolecmt = rolecmt;
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
 }

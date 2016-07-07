@@ -6,12 +6,13 @@
 package cr.cdrb.web.edu.domains.security;
 
 import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author Jayang
  */
-public class Users {
+public class Users implements java.io.Serializable{
 
     //用户名
     private String username;
