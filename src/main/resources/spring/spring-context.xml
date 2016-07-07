@@ -18,4 +18,15 @@
 	<context:component-scan base-package="org.xdemo.example.springaop">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+         <!-- DataSource -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+
+    <bean id="dataSource1"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:driverClassName="${jdbc1.driverClassName}"
+        p:url="${jdbc1.url}"
+        p:username="${jdbc1.username}"
+        p:password="${jdbc1.password}" />
 </beans>  
