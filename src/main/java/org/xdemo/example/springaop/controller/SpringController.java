@@ -1,9 +1,11 @@
 package org.xdemo.example.springaop.controller;
 
 import cr.cdrb.web.edu.domains.security.Users;
+import cr.cdrb.web.edu.security.EduInvocationSecurityMetadataSourceService;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
+import org.springframework.security.access.annotation.Secured;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +25,14 @@ public class SpringController {
     @ResponseBody
     @RequestMapping(value = "aop1")
     public String aop1() {
-
+        EduInvocationSecurityMetadataSourceService s = new EduInvocationSecurityMetadataSourceService();
         return "AOP";
     }
 
     @Log(name = "您访问了aop2方法")
     @ResponseBody
     @RequestMapping(value = "aop2")
+    @Secured({"ROLE_ADMIN"})
     public String aop2(String string) throws Throwable /// throws InterruptedException
     {
         Users user1 = userService.getUser();

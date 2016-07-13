@@ -28,9 +28,14 @@ public class EduFilterSecurityInterceptor extends AbstractSecurityInterceptor
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     public FilterInvocationSecurityMetadataSource getSecurityMetadataSource() {
-        return this.securityMetadataSource;
+        return securityMetadataSource;
     }
 
+    public void setSecurityMetadataSource(FilterInvocationSecurityMetadataSource securityMetadataSource) {
+        this.securityMetadataSource = securityMetadataSource;
+    }
+
+  
     @Override
     public Class<?> getSecureObjectClass() {
         return FilterInvocation.class;

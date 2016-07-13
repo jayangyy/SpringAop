@@ -20,8 +20,9 @@ public class ResourceDao implements IResourceDao {
 
     @Override
     public List<Resource> getResource(String rolename) {
-        String sqlStr = "select O.* from roles R\n"
+        String sqlStr = "select S.* from roles R\n"
                 + "   join res_roles O on O.roleid=R.roleid\n"
+                +"   join resources S on S.id=O.res_id\n"
                 + "   where R.rolename='" + rolename + "'";
         return SqlHelper.executeList(Resource.class, sqlStr);
     }

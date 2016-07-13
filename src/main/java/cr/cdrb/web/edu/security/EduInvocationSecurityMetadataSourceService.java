@@ -7,8 +7,6 @@ package cr.cdrb.web.edu.security;
 
 import cr.cdrb.web.edu.dao.AuthorityDao;
 import cr.cdrb.web.edu.dao.ResourceDao;
-import cr.cdrb.web.edu.daointerface.IAuthDao;
-import cr.cdrb.web.edu.daointerface.IResourceDao;
 import cr.cdrb.web.edu.domains.security.Role;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
@@ -25,46 +25,49 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
  *
  * @author jayan 权限元数据提供类
  */
-
 public class EduInvocationSecurityMetadataSourceService implements
         FilterInvocationSecurityMetadataSource {
-//    @Resource(name = "AuthorityDao")
+////    @Resource(name = "AuthorityDao")
+//
+//    private AuthorityDao authDao;
+////    @Resource(name = "ResourceDao")
+//
+//    public AuthorityDao getAuthDao() {
+//        return authDao;
+//    }
+//
+//    public void setAuthDao(AuthorityDao authDao) {
+//        this.authDao = authDao;
+//    }
+//
+//    public ResourceDao getResDao() {
+//        return resDao;
+//    }
+//
+//    public void setResDao(ResourceDao resDao) {
+//        this.resDao = resDao;
+//    }
+//
+//    private ResourceDao resDao;
 
-    private AuthorityDao authDao;
-//    @Resource(name = "ResourceDao")
-
-    public AuthorityDao getAuthDao() {
-        return authDao;
-    }
-
-    public void setAuthDao(AuthorityDao authDao) {
-        this.authDao = authDao;
-    }
-
-    public ResourceDao getResDao() {
-        return resDao;
-    }
-
-    public void setResDao(ResourceDao resDao) {
-        this.resDao = resDao;
-    }
-
- 
-
-    private ResourceDao resDao;
     private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
-   
     public EduInvocationSecurityMetadataSourceService() {
+        super();
         //使用注解方式的话，只能在构造函数执行完成后才能获得实例
-      this.authDao = new AuthorityDao();
-        this.resDao = new ResourceDao();
+//        this.authDao = new AuthorityDao();
+//        this.resDao = new ResourceDao();
+//         setResDao(new ResourceDao());
+//         setAuthDao(new AuthorityDao());
+//        System.out.println("构造函数!");
         loadResourceDefine();
     }
 
     // 在Web服务器启动时，提取系统中的所有权限
     private void loadResourceDefine() {
-        List<Role> query = this.authDao.getAllAuthorityName();//list<role>获取所有角色
+        ResourceDao resDao = new ResourceDao();
+        AuthorityDao authDao = new AuthorityDao();
+        List<Role> query = authDao.getAllAuthorityName();//list<role>获取所有角色
         ///   List<ResRole> resroFleList = this.authDao.getResRoles();//list<role>获取所有角色与资源映射
         /*
          * 应当是资源为key， 权限为value。 资源通常为url， 权限就是那些以ROLE_为前缀的角色。 一个资源可以由多个权限来访问。
@@ -73,7 +76,8 @@ public class EduInvocationSecurityMetadataSourceService implements
         resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
         for (Role auth : query) {
             ConfigAttribute ca = new SecurityConfig(auth.getRolename());
-            List<cr.cdrb.web.edu.domains.security.Resource> query1 = this.resDao.getResource(auth.getRolename());//list<resource>获取该角色所有资源
+
+            List<cr.cdrb.web.edu.domains.security.Resource> query1 = resDao.getResource(auth.getRolename());//list<resource>获取该角色所有资源
             for (cr.cdrb.web.edu.domains.security.Resource res : query1) {
                 String url = res.getRes_url();
                 /*
@@ -100,6 +104,7 @@ public class EduInvocationSecurityMetadataSourceService implements
 
     // 根据URL，找到相关的权限配置。
     @Override
+    @SuppressWarnings("empty-statement")
     public Collection<ConfigAttribute> getAttributes(Object object)
             throws IllegalArgumentException {
         // object 是一个URL，被用户请求的url。
@@ -116,7 +121,10 @@ public class EduInvocationSecurityMetadataSourceService implements
                 return resourceMap.get(resURL);
             }
         }
-        return null;//没有权限返回值暂未定
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ///SecurityContextHolder.getContext().setAuthentication(auth);设置登录用户
+        //throw new AccessDeniedException("无权限!");//对未加入权限的URL全部实施拦截
+        return null;//未加入权限管理URL 暂时不拦截
     }
 
     @Override
