@@ -6,13 +6,12 @@
 package cr.cdrb.web.edu.daointerface;
 
 import cr.cdrb.web.edu.domains.security.Resource;
-import cr.cdrb.web.edu.domains.security.Users;
 import java.util.List;
 
 /**
  *
  * @author Jayang
  */
-public interface IUserdao {
-    public Users GetUsers(String usernmae);
+public interface IResourceDao {
+    public List<Resource> getResource(String rolename);
 }

@@ -20,14 +20,40 @@ public class Users implements java.io.Serializable{
     private String password;
     //用户角色集合
     private List<Role> roles;
-    private String role;
+    private String rolename;
+    private Integer roleid;
+    private String rolecmt;
 
-    public String getRole() {
-        return role;
+    public String getRolecmt() {
+        return rolecmt;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRolecmt(String rolecmt) {
+        this.rolecmt = rolecmt;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    public Integer getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getRole() {
+        return rolename;
+    }
+
+    public void setRole(String rolename) {
+        this.rolename = rolename;
     }
 
     public String getUsername() {

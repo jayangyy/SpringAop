@@ -8,7 +8,6 @@ package cr.cdrb.web.edu.security;
 import cr.cdrb.web.edu.daointerface.IUserdao;
 import cr.cdrb.web.edu.domains.security.Role;
 import cr.cdrb.web.edu.domains.security.Users;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -17,11 +16,11 @@ import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.xdemo.example.springaop.service.LogService;
 
 /**
@@ -54,6 +53,7 @@ public class EduUserDetailsService implements UserDetailsService {
      * @param access
      * @return
      */
+
     public Collection<SimpleGrantedAuthority> getAuthorities(List<Role> roles) {
         // 所有的用户默认拥有ROLE_USER权限
         logger.debug("组装用户权限!");
