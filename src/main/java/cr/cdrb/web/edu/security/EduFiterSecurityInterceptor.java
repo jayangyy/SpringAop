@@ -5,12 +5,13 @@
  */
 package cr.cdrb.web.edu.security;
 
+import javax.servlet.Filter;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 /**
  *
  * @author jayan
  */
-public class EduFiterSecurityInterceptor extends FilterSecurityInterceptor {
+public class EduFiterSecurityInterceptor extends FilterSecurityInterceptor  implements Filter{
     
 }
