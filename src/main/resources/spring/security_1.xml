@@ -9,8 +9,14 @@
     <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"
     >
     </global-method-security>
-    
-    <http auto-config="true">
+     <http pattern="/s/**" security="none"/>  
+    <http pattern="/resources/**" security="none"/>  
+    <http pattern="/views/sessionTimeout.jsp" security="none" />  
+    <http pattern="**/*.css" security="none" />  
+    <http pattern="/edulogin.jsp" security="none" />  
+    <http pattern="/index.jsp" security="none" /> 
+    <http auto-config="true" use-expressions="true">
+         <intercept-url pattern="/**" access="isAuthenticated()" />
         <!--<form-login login-page="/index.jsp"  authentication-failure-url="/index.jsp?error=true"  />-->
         <remember-me data-source-ref="dataSource" />
         <session-management invalid-session-url="/sessionTimeout.jsp" />
