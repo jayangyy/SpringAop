@@ -5,7 +5,7 @@
  */
 package cr.cdrb.web.edu.daointerface;
 
-import cr.cdrb.web.edu.domains.security.Resource;
+import cr.cdrb.web.edu.security.domains.Resource;
 import java.util.List;
 
 /**

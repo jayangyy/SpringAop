@@ -7,13 +7,17 @@ package cr.cdrb.web.edu.security;
 
 import cr.cdrb.web.edu.dao.AuthorityDao;
 import cr.cdrb.web.edu.dao.ResourceDao;
-import cr.cdrb.web.edu.domains.security.Role;
+import cr.cdrb.web.edu.daointerface.IAuthDao;
+import cr.cdrb.web.edu.security.domains.Role;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.core.Authentication;
@@ -52,7 +56,8 @@ public class EduInvocationSecurityMetadataSourceService implements
 
     private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
-    public EduInvocationSecurityMetadataSourceService() {
+    @Autowired
+    public EduInvocationSecurityMetadataSourceService(IAuthDao testdao) throws SQLException {
         super();
         //使用注解方式的话，只能在构造函数执行完成后才能获得实例
 //        this.authDao = new AuthorityDao();
@@ -77,8 +82,8 @@ public class EduInvocationSecurityMetadataSourceService implements
         for (Role auth : query) {
             ConfigAttribute ca = new SecurityConfig(auth.getRolename());
 
-            List<cr.cdrb.web.edu.domains.security.Resource> query1 = resDao.getResource(auth.getRolename());//list<resource>获取该角色所有资源
-            for (cr.cdrb.web.edu.domains.security.Resource res : query1) {
+            List<cr.cdrb.web.edu.security.domains.Resource> query1 = resDao.getResource(auth.getRolename());//list<resource>获取该角色所有资源
+            for (cr.cdrb.web.edu.security.domains.Resource res : query1) {
                 String url = res.getRes_url();
                 /*
                  * 判断资源文件和权限的对应关系，如果已经存在相关的资源url，则要通过该url为key提取出权限集合，将权限增加到权限集合中。

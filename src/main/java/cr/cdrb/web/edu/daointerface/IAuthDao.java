@@ -5,8 +5,8 @@
  */
 package cr.cdrb.web.edu.daointerface;
 
-import cr.cdrb.web.edu.domains.security.ResRole;
-import cr.cdrb.web.edu.domains.security.Role;
+import cr.cdrb.web.edu.security.domains.ResRole;
+import cr.cdrb.web.edu.security.domains.Role;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ public interface IAuthDao {
 
     public List<Role> getAllAuthorityName() ;
 
-    public List<cr.cdrb.web.edu.domains.security.Resource> getResource(String rolename);
+    public List<cr.cdrb.web.edu.security.domains.Resource> getResource(String rolename);
     
     ///获取所有RES_ROLE映射
     public List<ResRole> getResRoles();

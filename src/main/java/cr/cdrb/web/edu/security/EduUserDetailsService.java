@@ -6,8 +6,8 @@
 package cr.cdrb.web.edu.security;
 
 import cr.cdrb.web.edu.daointerface.IUserdao;
-import cr.cdrb.web.edu.domains.security.Role;
-import cr.cdrb.web.edu.domains.security.Users;
+import cr.cdrb.web.edu.security.domains.Role;
+import cr.cdrb.web.edu.security.domains.Users;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;

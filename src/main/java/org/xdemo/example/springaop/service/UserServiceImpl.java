@@ -1,7 +1,7 @@
 package org.xdemo.example.springaop.service;
 
 import cr.cdrb.web.edu.daointerface.IUserdao;
-import cr.cdrb.web.edu.domains.security.Users;
+import cr.cdrb.web.edu.security.domains.Users;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.xdemo.example.springaop.annotation.Log;

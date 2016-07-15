@@ -6,9 +6,10 @@
 package cr.cdrb.web.edu.dao;
 
 import cr.cdrb.web.edu.daointerface.IAuthDao;
-import cr.cdrb.web.edu.domains.security.ResRole;
-import cr.cdrb.web.edu.domains.security.Resource;
-import cr.cdrb.web.edu.domains.security.Role;
+import cr.cdrb.web.edu.daointerface.IUserdao;
+import cr.cdrb.web.edu.security.domains.ResRole;
+import cr.cdrb.web.edu.security.domains.Resource;
+import cr.cdrb.web.edu.security.domains.Role;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import tools.SqlHelper;
@@ -19,7 +20,8 @@ import tools.SqlHelper;
  */
 @Repository
 public class AuthorityDao implements IAuthDao {
-
+    @javax.annotation.Resource
+    private IUserdao userdao;
     @Override
     public List<Role> getAllAuthorityName() {
         String sqlStr = "select * from roles";

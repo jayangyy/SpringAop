@@ -6,7 +6,7 @@
 package cr.cdrb.web.edu.dao;
 
 import cr.cdrb.web.edu.daointerface.IResourceDao;
-import cr.cdrb.web.edu.domains.security.Resource;
+import cr.cdrb.web.edu.security.domains.Resource;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import tools.SqlHelper;

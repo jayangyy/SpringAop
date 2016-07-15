@@ -57,7 +57,7 @@
             <div class="msg">${msg}</div>
         </c:if>
 
-        <form name='loginForm'  action="<c:url value='/j_spring_security_check' />" method='POST'>
+        <form name='loginForm'  action="<c:url value='/login' />" method='POST'>
               <table>
                 <tr>
                     <td>用户:</td>
