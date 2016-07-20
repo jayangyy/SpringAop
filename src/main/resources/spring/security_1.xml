@@ -5,21 +5,24 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/security
  http://www.springframework.org/schema/security/spring-security.xsd">
-      <http/>
+<!--    <http>
+          <form-login login-page="/Home/EduLogin"  authentication-failure-url="/index.jsp?error=true"  />
+    </http>
     <user-service>
         <user name="user" password="password" authorities="ROLE_USER" />
-    </user-service>
-<!--    <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"
+    </user-service>-->
+        <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"
     >
     </global-method-security>
     <http pattern="/s/**" security="none"/>  
     <http pattern="/resources/**" security="none"/>  
     <http pattern="**/*.css" security="none" />   
-    <http auto-config="true" use-expressions="true">       
-        <form-login login-page="/login"  authentication-failure-url="/index.jsp?error=true"  />
-        <intercept-url pattern="/login" access="permitAll" />
+     <http pattern="/Home/EduLogin*" security="none" />   
+    <http auto-config="true" use-expressions="true">    
+        <form-login login-page="/Home/EduLogin"  authentication-failure-url="/index.jsp?error=true"/>
+<!-- <intercept-url pattern="/login" access="permitAll" />
           <intercept-url pattern="/login" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" />       
-        <intercept-url pattern="/**" access="isAuthenticated()"/> 
+        <intercept-url pattern="/**" access="isAuthenticated()"/> -->
         <remember-me data-source-ref="dataSource" />
         <session-management  invalid-session-url="/sessionTimeout.jsp"   />
         <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/> 
@@ -37,7 +40,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsManager">
             <password-encoder ref="passwordEncoder">
-                <salt-source user-property="username" />
+                <!--<salt-source user-property="username" />-->
             </password-encoder> 
         </authentication-provider>
     </authentication-manager>
@@ -49,5 +52,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
     <b:bean id="mySecurityMetadataSource"
             class="cr.cdrb.web.edu.security.EduInvocationSecurityMetadataSourceService">
     </b:bean> 
-    <b:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>     -->
+    <b:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>     
+<!--    <b:bean id="mySecurityMetadataSource"
+            class="cr.cdrb.web.edu.security.EduInvocationSecurityMetadataSourceService">
+    </b:bean> -->
 </b:beans>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cr.cdrb.web.edu.dao;
+package cr.cdrb.web.edu.common;
 
 import cr.cdrb.web.edu.daointerface.IAuthDao;
 import cr.cdrb.web.edu.daointerface.IUserdao;

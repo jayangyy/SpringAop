@@ -5,8 +5,8 @@
 // */
 package cr.cdrb.web.edu.security;
 
-import cr.cdrb.web.edu.dao.AuthorityDao;
-import cr.cdrb.web.edu.dao.ResourceDao;
+import cr.cdrb.web.edu.common.AuthorityDao;
+import cr.cdrb.web.edu.common.ResourceDao;
 import cr.cdrb.web.edu.daointerface.IAuthDao;
 import cr.cdrb.web.edu.security.domains.Role;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.core.Authentication;
@@ -33,7 +33,8 @@ public class EduInvocationSecurityMetadataSourceService implements
         FilterInvocationSecurityMetadataSource {
 ////    @Resource(name = "AuthorityDao")
 //
-//    private AuthorityDao authDao;
+
+    private IAuthDao authDao1;
 ////    @Resource(name = "ResourceDao")
 //
 //    public AuthorityDao getAuthDao() {
@@ -59,8 +60,8 @@ public class EduInvocationSecurityMetadataSourceService implements
     @Autowired
     public EduInvocationSecurityMetadataSourceService(IAuthDao testdao) throws SQLException {
         super();
-        //使用注解方式的话，只能在构造函数执行完成后才能获得实例
-//        this.authDao = new AuthorityDao();
+        //使用注解方式的话，只能在构造函数执行完成后才能获得实例    
+        this.authDao1 = testdao;
 //        this.resDao = new ResourceDao();
 //         setResDao(new ResourceDao());
 //         setAuthDao(new AuthorityDao());
@@ -126,10 +127,10 @@ public class EduInvocationSecurityMetadataSourceService implements
                 return resourceMap.get(resURL);
             }
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ///SecurityContextHolder.getContext().setAuthentication(auth);设置登录用户
-        //throw new AccessDeniedException("无权限!");//对未加入权限的URL全部实施拦截
-        return null;//未加入权限管理URL 暂时不拦截
+        ///throw new AccessDeniedException("无权限!");//对未加入权限的URL全部实施拦截
+       return null;//未加入权限管理URL 暂时不拦截
     }
 
     @Override
