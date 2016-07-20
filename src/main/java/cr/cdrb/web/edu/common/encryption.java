@@ -12,6 +12,7 @@ import sun.misc.BASE64Encoder;
 /**
  *
  * @author Jayang
+ * 加解密类
  */
 public class encryption {
     public static String getBase64(String str) {  

@@ -1,4 +1,4 @@
-package commmon;
+package cr.cdrb.web.edu.common;
 import java.util.ArrayList;
 import java.util.List;
 

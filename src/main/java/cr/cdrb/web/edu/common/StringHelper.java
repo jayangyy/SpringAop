@@ -1,4 +1,4 @@
-package commmon;
+package cr.cdrb.web.edu.common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

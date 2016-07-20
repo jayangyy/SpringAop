@@ -5,8 +5,8 @@
 // */
 package cr.cdrb.web.edu.security;
 
-import cr.cdrb.web.edu.common.AuthorityDao;
-import cr.cdrb.web.edu.common.ResourceDao;
+import cr.cdrb.web.edu.dao.AuthorityDao;
+import cr.cdrb.web.edu.dao.ResourceDao;
 import cr.cdrb.web.edu.daointerface.IAuthDao;
 import cr.cdrb.web.edu.security.domains.Role;
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 package org.xdemo.example.springaop.controller;
 
-import cr.cdrb.web.edu.common.AuthorityDao;
+import cr.cdrb.web.edu.dao.AuthorityDao;
 import cr.cdrb.web.edu.daointerface.IAuthDao;
 import cr.cdrb.web.edu.security.domains.Users;
 import java.util.HashMap;

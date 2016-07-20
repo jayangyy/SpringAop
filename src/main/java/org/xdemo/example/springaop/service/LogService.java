@@ -5,6 +5,7 @@
  */
 package org.xdemo.example.springaop.service;
 
+import cr.cdrb.web.edu.common.encryption;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -30,13 +31,15 @@ public class LogService {
     public static void addLogToDb(Log log) {
     
     }
-//
-//    public static void main(String[] args) {
+
+    public static void main(String[] args) {
+       // encryption.getBase64("UserPID=admin");
 //        log.error("ERROR3333333");
 //        log.debug("DEBUG");
 //        log.warn("WARN");
 //        log.info("INFO");
 //        log.trace("TRACE");
-//       System.out.println(log.getClass());
-//    }
+       System.out.println(log.getClass());
+       System.out.println(encryption.getBase64("UserPID=admin"));
+    }
 }

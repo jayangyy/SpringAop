@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World! <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></h1>
+        <h1>请登录！！！</h1>
     </body>
 </html>
