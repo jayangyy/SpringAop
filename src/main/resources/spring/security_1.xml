@@ -27,6 +27,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
         <session-management  invalid-session-url="/sessionTimeout.jsp"   />
         <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/> 
         <logout delete-cookies="JSESSIONID" />
+        <http-basic/>
     </http>
     <b:bean id="myFilter" 
             class="cr.cdrb.web.edu.security.EduFilterSecurityInterceptor">

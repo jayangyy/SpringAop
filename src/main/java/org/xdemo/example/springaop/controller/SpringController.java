@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xdemo.example.springaop.annotation.Log;
 import org.xdemo.example.springaop.bean.User;
@@ -75,6 +76,11 @@ public class SpringController {
     public String aop2() {
         ///  EduInvocationSecurityMetadataSourceService s = new EduInvocationSecurityMetadataSourceService();
 
+        return "index";
+    }
+     @RequestMapping(value = "delete" ,method = RequestMethod.DELETE)
+    public Object aop3() {
+        ///  EduInvocationSecurityMetadataSourceService s = new EduInvocationSecurityMetadataSourceService();
         return "index";
     }
 
