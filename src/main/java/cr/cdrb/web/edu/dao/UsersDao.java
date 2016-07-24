@@ -26,12 +26,12 @@ public class UsersDao implements IUserdao {
     public Users GetUsers(String usernmae) {
         Users endUser = new Users();
         String sqlStr = "select U.username,U.password,S1.rolename,S1.roleid,S1.rolecmt from Users U "
-                + "left join user_roles  R on R.username=U.username "
+                + " left join user_roles  R on R.username=U.username "
                 + " left join roles S1 on S1.roleid=R.roleid where U.username='" + usernmae + "' "
                 + "union  "
-                + " left select U1.username,U1.password,S.rolename,S.roleid,S.rolecmt from Users U1 "
+                + " select U1.username,U1.password,S.rolename,S.roleid,S.rolecmt from Users U1 "
                 + " left join group_members G on G.username=U1.username "
-                + "  left join group_roles  R1 on R1.group_id=G.id "
+                + " left join group_roles  R1 on R1.group_id=G.id "
                 + " left join roles S on S.roleid=R1.roleid  where U1.username='" + usernmae + "'";
         List<Users> userList = SqlHelper.executeList(Users.class, sqlStr);
         if (userList.size() == 0) {
