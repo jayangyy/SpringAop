@@ -5,14 +5,18 @@
  */
 package cr.cdrb.web.edu.security.domains;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author Jayang
  */
-public class Users implements java.io.Serializable{
+public class Users implements java.io.Serializable, UserDetails {
 
     //用户名
     private String username;
@@ -23,7 +27,54 @@ public class Users implements java.io.Serializable{
     private String rolename;
     private Integer roleid;
     private String rolecmt;
+    private  Collection<SimpleGrantedAuthority> authorities;
+    private  boolean accountNonExpired;
+    @Override
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
+    public void setAuthorities(Collection<SimpleGrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    private  boolean accountNonLocked;
+    private  boolean credentialsNonExpired;
+    private  boolean enabled;
     public String getRolecmt() {
         return rolecmt;
     }
@@ -79,4 +130,6 @@ public class Users implements java.io.Serializable{
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+
 }

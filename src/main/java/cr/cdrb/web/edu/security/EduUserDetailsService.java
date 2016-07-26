@@ -25,15 +25,14 @@ import org.xdemo.example.springaop.service.LogService;
 
 /**
  *
- * @author Jayang
- * Seurity数据库用户提供程序
+ * @author Jayang Seurity数据库用户提供程序
  */
 public class EduUserDetailsService implements UserDetailsService {
-
+    
     protected static Log logger = LogService.getLog(EduUserDetailsService.class);
     @Autowired
     private IUserdao userDAO;
-
+    
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException, DataAccessException {
         UserDetails user = null;
@@ -41,10 +40,14 @@ public class EduUserDetailsService implements UserDetailsService {
         if (dbUser == null) {
             throw new UsernameNotFoundException("未匹配到用户");
         }
-        user = new User(dbUser.getUsername(), dbUser.getPassword()
-                .toLowerCase(), true, true, true, true,
-                getAuthorities(dbUser.getRoles()));
-        return user;
+//        user = new User(dbUser.getUsername(), dbUser.getPassword()
+//                .toLowerCase(), true, true, true, true,
+//                getAuthorities(dbUser.getRoles()));
+        dbUser.setAccountNonExpired(true);
+        dbUser.setAuthorities(getAuthorities(dbUser.getRoles()));
+        dbUser.setCredentialsNonExpired(true);
+        dbUser.setAccountNonLocked(true);
+        return dbUser;
     }
 
     /**
@@ -53,7 +56,6 @@ public class EduUserDetailsService implements UserDetailsService {
      * @param access
      * @return
      */
-
     public Collection<SimpleGrantedAuthority> getAuthorities(List<Role> roles) {
         // 所有的用户默认拥有ROLE_USER权限
         logger.debug("组装用户权限!");

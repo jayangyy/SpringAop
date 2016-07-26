@@ -75,22 +75,7 @@ public class HomeController {
             @RequestParam(value = "logout", required = false) String logout) throws Throwable {
         //Home/EduLogin?VXNlclBJRD1hZG1pbg==
         ModelAndView model = new ModelAndView();
-        Map<String, String[]> params = request.getParameterMap();
-        String param = request.getQueryString();
-        System.out.print(param);
-        if (param == null) {
-            /// model.addObject("error", "用户参数不能为空!");
-            throw new AccessDeniedException("无权限!");
-        }
-        if (param.length() == 0) {
-            // model.addObject("error", "用户参数不能为空!");
-            throw new UsernameNotFoundException("用户参数不能为空!");
-        }
-        String username = encryption.getFromBase64(param);
-        //从spring容器中获取UserDetailsService(这个从数据库根据用户名查询用户信息,及加载权限的service)  
-        //根据用户名username加载userDetails  
-        System.out.printf(username.substring(username.indexOf("=") + 1));
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username.substring(username.indexOf("=") + 1));
+        UserDetails userDetails = userDetailsService.loadUserByUsername("user");
         //根据userDetails构建新的Authentication,这里使用了  
         //PreAuthenticatedAuthenticationToken当然可以用其他token,如UsernamePasswordAuthenticationToken                 
         UsernamePasswordAuthenticationToken authentication
