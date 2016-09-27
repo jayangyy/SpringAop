@@ -13,8 +13,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.xdemo.example.springaop.annotation.Log;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class LogAop_1 {
 
 	/*ThreadLocal<Long> time=new ThreadLocal<Long>();

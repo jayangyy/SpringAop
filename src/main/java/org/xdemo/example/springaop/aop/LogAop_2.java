@@ -15,8 +15,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.xdemo.example.springaop.annotation.Log;
 
-@Aspect
-@Component
+///@Aspect
+///@Component
 public class LogAop_2 {
 
     ThreadLocal<Long> time = new ThreadLocal<Long>();
@@ -52,21 +52,21 @@ public class LogAop_2 {
         System.out.println("标记为" + tag.get() + "的方法" + method.getName() + "运行消耗" + (System.currentTimeMillis() - time.get()) + "ms");
     }
 
-    @Around("log()")
-    public void aroundExec(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("我是Around，来打酱油的");
-        pjp.proceed();
-//		  try{
-//                System.out.println("afterThrowing:");
-//           pjp.proceed();
-//            }catch(Exception ex)
-//            {
-//               ///System.out.println("我是afterThrowing1捕获的异常信息error:" + ex.getMessage());
-//               throw ex;
-//            }
-//                
-
-    }
+//    @Around("log()")
+//    public void aroundExec(ProceedingJoinPoint pjp) throws Throwable {
+//        System.out.println("我是Around，来打酱油的");
+//        pjp.proceed();
+////		  try{
+////                System.out.println("afterThrowing:");
+////           pjp.proceed();
+////            }catch(Exception ex)
+////            {
+////               ///System.out.println("我是afterThrowing1捕获的异常信息error:" + ex.getMessage());
+////               throw ex;
+////            }
+////                
+//
+//    }
 
     @AfterThrowing(pointcut = "log()", throwing = "error")
     public void afterThrowing(JoinPoint jp, Throwable error) {

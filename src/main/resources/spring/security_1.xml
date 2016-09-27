@@ -5,13 +5,61 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/security
  http://www.springframework.org/schema/security/spring-security.xsd">
-    <!--    <http>
-          <form-login login-page="/Home/EduLogin"  authentication-failure-url="/index.jsp?error=true"  />
+    <http auto-config="false" entry-point-ref="loginEntryPoint">
+        <session-management invalid-session-url="/sessionTimeout.jsp"    session-fixation-protection="migrateSession ">
+            <concurrency-control max-sessions="1"  session-registry-ref="sessionRegistry" error-if-maximum-exceeded="true"/> 
+        </session-management>
+        <custom-filter ref="customLogoutFilter" position="LOGOUT_FILTER" />
+        <custom-filter ref="customLoginFilter" position="FORM_LOGIN_FILTER" />
     </http>
-    <user-service>
-        <user name="user" password="password" authorities="ROLE_USER" />
-    </user-service>-->
-    <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"
+    <b:bean id="loginEntryPoint"
+                class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <b:constructor-arg value="/Home/login" />
+    </b:bean>
+    <b:bean id="sessionRegistry"
+            class="org.springframework.security.core.session.SessionRegistryImpl" />
+    <b:bean id="customLoginFilter" class="cr.cdrb.web.edu.security.CustomLoginFilter">
+        <b:property name="filterProcessesUrl" value="/checklogin" />
+        <b:property name="authenticationManager" ref="authenticationManager" />
+        <b:property name="usernameParameter" value="username" />
+        <b:property name="passwordParameter" value="password" />
+        <b:property name="authenticationSuccessHandler">
+            <b:bean class="cr.cdrb.web.edu.security.CustomLoginHandler">
+                <b:property name="defaultTargetUrl" value="/welcome" />
+            </b:bean>
+        </b:property>
+        <b:property name="authenticationFailureHandler">
+            <b:bean
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+                <b:property name="defaultFailureUrl" value="/login?error" />
+            </b:bean>
+        </b:property>
+    </b:bean>
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <user-service>        
+                <user name="user" password="password" authorities="ROLE_USER" />
+                <user name="users" password="password" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+    <b:bean id="customLogoutFilter" class="cr.cdrb.web.edu.security.CustomLogoutFilter">
+
+        <b:property name="filterProcessesUrl" value="/logout" />
+
+        <b:constructor-arg index="0" value="/login?logout" />
+        <b:constructor-arg index="1">         
+            <b:array>
+                <b:bean id="securityContextLogoutHandler"
+                        class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+           
+                <b:bean id="customLogoutSuccessHandler" class="cr.cdrb.web.edu.security.CustomLogoutHandler" />
+            </b:array>
+        </b:constructor-arg>
+    </b:bean>
+    
+
+    <!--    <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"
     >
     </global-method-security>
     <http pattern="/s/**" security="none"/>  
@@ -19,16 +67,22 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
     <http pattern="**/*.css" security="none" />   
     <http pattern="/Home/EduLogin*" security="none" />   
     <http auto-config="true" use-expressions="true">    
-        <form-login login-page="/Home/EduLogin"  authentication-failure-url="/Index?error=true"/>
-        <!-- <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/login" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" />  -->     
+        <form-login login-page="/Home/EduLogin"  authentication-failure-url="/Index?error=true" />
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/login" access="hasRole('IS_AUTHENTICATED_ANONYMOUSLY')" />       
         <intercept-url pattern="/**" access="isAuthenticated()"/> 
         <remember-me data-source-ref="dataSource" />
         <session-management  invalid-session-url="/sessionTimeout.jsp"   />
+        <custom-filter ref="myLoginFilter" before="FORM_LOGIN_FILTER"  />  
         <custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/> 
         <logout delete-cookies="JSESSIONID" />
         <http-basic/>
-    </http>
+    </http>-->
+    <!--     <b:bean id="myLoginFilter" class="cr.cdrb.web.edu.security.MyUsernamePasswordAuthenticationFilter">  
+        <b:property name="authenticationManager" ref="authenticationManager"/>  
+        <b:property name="authenticationFailureHandler" ref="failureHandler"/>  
+        <b:property name="authenticationSuccessHandler" ref="successHandler"/>  
+    </b:bean>  
     <b:bean id="myFilter" 
             class="cr.cdrb.web.edu.security.EduFilterSecurityInterceptor">
         <b:property name="authenticationManager" 
@@ -41,7 +95,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsManager">
             <password-encoder ref="passwordEncoder">
-                <!--<salt-source user-property="username" />-->
+                <salt-source user-property="username" />
             </password-encoder> 
         </authentication-provider>
     </authentication-manager>
@@ -51,10 +105,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
             class="cr.cdrb.web.edu.security.EduAccessDecisionManager">
     </b:bean>  
     <b:bean id="mySecurityMetadataSource"
-            class="cr.cdrb.web.edu.security.EduInvocationSecurityMetadataSourceService">
-    </b:bean> 
-    <b:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>     
-    <!--    <b:bean id="mySecurityMetadataSource"
             class="cr.cdrb.web.edu.security.EduInvocationSecurityMetadataSourceService">
     </b:bean> -->
 </b:beans>

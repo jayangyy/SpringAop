@@ -34,12 +34,13 @@ public class LogService {
 
     public static void main(String[] args) {
        // encryption.getBase64("UserPID=admin");
-//        log.error("ERROR3333333");
-//        log.debug("DEBUG");
-//        log.warn("WARN");
+//      log.error("ERROR3333333");      
+//      log.debug("DEBUG");
+//      log.warn("WARN");
 //        log.info("INFO");
-//        log.trace("TRACE");
-       System.out.println(log.getClass());
-       System.out.println(encryption.getBase64("UserPID=admin"));
+//       log.trace("TRACE");
+//       System.out.println(log.getClass());
+//       System.out.println(encryption.getBase64("UserPID=admin"));
+      System.out.println( EduReviewsStatus.Start);
     }
 }

@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author jayan
  */
 @Component
-///@Service
 public class MyHandlerExceptionResolver implements HandlerExceptionResolver {   
   
     private static String sss="";

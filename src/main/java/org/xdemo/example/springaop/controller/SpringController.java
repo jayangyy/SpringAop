@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +19,15 @@ import org.xdemo.example.springaop.bean.User;
 import org.xdemo.example.springaop.service.IUserService;
 
 @Controller
+@RequestMapping("/test")
 public class SpringController {
 
     @Resource
     IUserService userService;
     @Resource
     IAuthDao IAuthDao;
-
+    @Resource(name = "sessionRegistry")
+    public SessionRegistry sessionRegistry1;
     @Log(name = "您访问了aop1方法")
     @ResponseBody
     @RequestMapping(value = "aop1")
